@@ -1,13 +1,13 @@
-<!DOCTYPE html>
 <html>
-<body>
-<title>Comment Maker</title>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script src="designs.js" type="text/javascript"></script> 
 <script type="text/javascript">
 
 function writeText (forminput, formoutput) {
     var input = forminput.inputbox.value;
     var newLineIndex = input.search('\n');
-    var output = design0(input );//not sure why i have to add space, but gets rid of a bug :)
+    var output = design0(input);//not sure why i have to add space, but gets rid of a bug :)
     formoutput.outputbox.value = output;
 }
 
@@ -15,112 +15,56 @@ function insertText(index, text, textToInsert){
 	return text.slice(0, index) + textToInsert + text.slice(index);
 }
 
-function design0(text){
-	var index1 = 0;
-    var index = 0;
-    var indent = 2;
-    var fill = "/";
-    var sizex = 75;
-    var overLoad = false;
-
-
-
-
-    //each loop in the do_while can be thought of an individual line
-    do
-    {
-        text = insertText(index1, text, fill);//left line of *
-        text = insertText(index1, text, fill);
-
-        for(var i=0; i<indent; i++)//this will insert how much indent
-            text = insertText(index1+2, text, " ");
-
-        index = text.indexOf('\n', index1);//finds where the next \n is and finds its place and puts it into index
-        if(index == -1)
-        {
-        	for (var i = text.length; i<(index1 + sizex); i++)//this adds the correct amount of spacing between the text and the right column of *
-            text = insertText(text.length, text, " ");
-        }
-        else
-        {
-	        for (var i = index; i<(index1 + sizex); i++)//this adds the correct amount of spacing between the text and the right column of *
-	            text = insertText(index, text, " ");
-	    }
-
-        text = insertText(index1+sizex, text, fill);//right line of *
-        text = insertText(index1+sizex, text, fill);
-
-        index1 += sizex+3;
-
-        //if ((index1-index) >= sizex && index != -1) // checks to make sure the text inputed does not exceed the size.
-        if (index + indent - 1 > index1)
-            overLoad = true;
-
-    }while(index != -1);
-
-    //Top line:
-    text = insertText(0, text, "/*");
-    for (var i = 2; i < sizex + 2; i++)
-        text = insertText(2, text, fill);
-    text = insertText(sizex+2, text, '\n');
-
-
-    //Bottom Line:
-    text += '\n';
-    for (var i = 1; i<sizex+2; i++)
-        text += fill;
-    text += "*/";
-
-    return text;
-
-
-}
-
-/*///////////////////////////////////////////////////////////////////////////
-//  asd                                                                    //
-//  asd                                                                    //
-//  asdads                                                                 //
-//                                                                         //
-//  asdasf                                                                 //
-//                                                                         //    
-////////////////////////////////////////////////////////////////////////////*/
-
-
-
-
-
 
 </script>
+</head>
+<body>
+<h1 class="h1">Comment Maker</h1>
+<div class = "content">
+<title>Comment Maker</title>
 
-<form name="input" action="" method="GET">
-	Enter comment here: <br>
-	<textarea cols="40" rows="5" type="text" name="inputbox" value="my comment" oninput="writeText(input, output)"></textarea><p>
-	<input type="button" name="generate" value="generate" onclick="writeText(input, output)">
-</form>
-<p>
-	Select Lanuage:<br>
-	<select name="code-language">
-	    <option value="c">C/C++/C#/Java</option>
-	    <option value="html">html/xml</option>
-	    <option value="">Other</option>
-	</select>
-</p>
-
-<p>
-	Select Filler:<br>
-	<select name="filler">
-	    <option value="0">##</option>
-	    <option value="1">#/</option>
-	    <option value="2">**</option>
-	    <option value="3">*/</option>
-	    <option value="4">//</option>
-	</select>
-</p>
+	
+	<form name="input" action="" method="GET">
+		Enter comment here: <br>
+		<textarea class = "textarea_top" cols="10" rows="5" type="text" name="inputbox" oninput="writeText(input, output)"></textarea><p>
+	</form>
+	
+	<div class = "options">
+		<p>
+			Select Lanuage:<br>
+			<select name="code-language">
+				<option value="c">C/C++/C#/Java</option>
+				<option value="html">html/xml</option>
+				<option value="">Other</option>
+			</select>
+		</p>
 
 
+		<p>
+			Select Filler:<br>
+			<select id="filler" name="filler" onchange="writeText(input, output)">
+				<option value="/">/</option>
+				<option value="#">#</option>
+				<option value="*">*</option>
+				<option value="-">-</option>
+				<option value="|">|</option>
+			</select>
+			<select id="filler" name="filler" onchange="writeText(input, output)">
+				<option value="/">/</option>
+				<option value="#">#</option>
+				<option value="*">*</option>
+				<option value="-">-</option>
+				<option value="|">|</option>
+			</select>
+		</p>
+	</div>
 
-<form name="output" action="" method="GET">
-	<textarea cols="100" rows="30" type="text" type="text" name="outputbox" value=""></textarea><p>
-</form>
+
+	<div>
+		<form name="output" action="" method="GET">
+			<textarea class = "textarea_bottom" cols="40" rows="20" type="text" type="text" name="outputbox" value=""></textarea><p>
+		</form>
+	</div>
+</div>
 </body>
 </html>

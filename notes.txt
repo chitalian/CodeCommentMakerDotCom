@@ -1,0 +1,13 @@
+smfl
+sdl2
+
+monogame and libgdx
+
+coco studio
+
+
+ideas to add:
+
+	Intellisense comments
+
+		/// <style> 
